@@ -1,24 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import { createMuiTheme, ThemeProvider } from "@material-ui/core"
+import Navbar from './Components/Navbar';
+import { indigo, teal } from '@material-ui/core/colors';
+import Homepage from './Components/HomePage';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Cateogary from './Components/Cateogary';
+import Doctors from './Components/Doctors';
+
+
+let theme = createMuiTheme({
+  palette: {
+    primary: indigo,
+    secondary: teal,
+  },
+})
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Navbar></Navbar>
+        <Switch>
+
+          <Route exact path='/'>
+            <Homepage></Homepage>
+          </Route>
+
+          <Route exact path='/city-:city'>
+            <Cateogary></Cateogary>
+          </Route>
+
+          <Route exact path='/city-:city/cat-:cat'>
+            <Doctors></Doctors>
+          </Route>
+
+
+        </Switch>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
